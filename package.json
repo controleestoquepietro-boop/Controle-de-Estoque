@@ -5,15 +5,15 @@
   "description": "Controle de Estoque - Web app (preparado para deploy)",
   "author": "",
   "license": "MIT",
+
   "scripts": {
-    "dev": "cross-env NODE_ENV=development NODE_TLS_REJECT_UNAUTHORIZED=0 tsx server/index.ts",
-    "copy-env": "node scripts/copy-env.js",
+    "clean": "node -e \"require('fs').rmSync('dist',{recursive:true,force:true});\"",
+    "build": "npm run clean && npm run build:app && npm run build:server",
     "build:app": "vite build",
-    "build": "npm run build:app",
-    "check": "tsc",
-    "db:push": "drizzle-kit push",
-    "start": "npm run dev"
+    "build:server": "tsc -p server/tsconfig.json",
+    "start": "node dist/server/index.js"
   },
+
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
     "@jridgewell/trace-mapping": "^0.3.25",
@@ -89,6 +89,7 @@
     "zod": "^3.25.76",
     "zod-validation-error": "^3.4.0"
   },
+
   "devDependencies": {
     "@replit/vite-plugin-dev-banner": "^0.1.1",
     "@replit/vite-plugin-runtime-error-modal": "^0.0.3",
@@ -119,8 +120,9 @@
     "tsx": "^4.20.5",
     "typescript": "^5.6.3",
     "vite": "^5.4.21",
-    "wait-on": "^7.2.0"
+    "wait-on": "^7.2.2"
   },
+
   "optionalDependencies": {
     "bufferutil": "^4.0.8"
   }
